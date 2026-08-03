@@ -1,0 +1,1078 @@
+
+Claude finished the response
+
+index.html
+html
+
+請根據我提供的程式碼檔案，修改以下需求，其餘未提及的功能與邏輯請勿變動，完成後請給我完整的html語法
+
+1.上方標題列將JJIN 改為 J.Y.JIN，並且將選單中的[下載PDF履歷]功能移除，將選單中的中/英翻譯按鈕直接放在上方狀態列，不需要選單
+
+2.優化整體ui/ux設計，可更改配色，但不要大幅度變動，希望仍是維持高級簡約有質感
+
+
+重構HTML檔案並系統性地應用設計優化與功能調整。
+重構HTML檔案並系統性地應用設計優化與功能調整。
+All references to the removed download-PDF link and mobile menu are gone, and the file closes properly. Now let me copy it to outputs and hand it over.
+
+
+Ran a command, read a file
+Ran a command, read a file
+已完成修改，重點如下：
+
+1. 導覽列調整
+
+Logo 由「J. Jin」改為「J.Y.JIN」（JIN 以主色標示，作為簡約的品牌強調）
+移除「下載 PDF 履歷」功能與連結
+移除整個選單（含手機版漢堡選單與下拉遮罩），中/英翻譯按鈕直接以圓角膠囊按鈕呈現在上方狀態列，桌機、手機都直接可見不需開選單
+2. UI/UX 優化（配色微調，維持原有高級簡約風格）
+
+色彩微調：文字改為更有質感的深墨綠灰、背景改為暖調米白、邊框改為暖灰調、主色（sage green）加深一階並新增 hover 用深色變體，整體更沉穩有質感
+背景加入極淡的放射狀漸層，增加畫面深度但不搶眼
+Hero 區塊的問候文字前加上一條細線裝飾，強化簡約設計感
+按鈕（作品集／聯絡我）改為膠囊造型，並優化 hover 陰影效果
+各卡片（經歷、專案、學歷）hover 時改用帶主色調的柔和陰影，取代原本單調的灰階陰影，質感更細膩
+分頁選中底線加上圓角
+全站互動元件新增 focus-visible 樣式，提升鍵盤操作的可用性與細緻度
+其餘所有文字內容、資料邏輯（中英切換、分頁切換渲染邏輯）均維持原樣未變動。
+
+
+Index
+Code · HTML 
+修復錯誤Uncaught Error: Uncaught ReferenceError: lucide is not defined
+
+
+Ran 3 commands, edited 2 files
+Ran 3 commands, edited 2 files
+All calls are now guarded. Let me finalize and re-deliver the file.
+
+
+Ran a command, read a file
+Ran a command, read a file
+已修復。問題原因是圖示套件 Lucide 透過 unpkg.com 載入，若該 CDN 當下連線失敗或被瀏覽器擋下，lucide 這個全域變數就不存在，後面呼叫 lucide.createIcons() 就會噴出 ReferenceError。
+
+修復方式：
+
+加入備援 CDN：若 unpkg 載入失敗（typeof lucide === "undefined"），自動改用 jsdelivr 重新載入 Lucide。
+加上安全防護：把原本直接呼叫的 lucide.createIcons() 包成 safeCreateIcons()，執行前會先確認 lucide 確實存在，即使兩個 CDN 都失敗，也只會在主控台顯示警告，不會讓整段程式中斷、影響到中英切換等其他功能。
+其餘所有內容與樣式皆未變動。
+
+
+Index
+Code · HTML 
+專業技能與證照 幫我分開成兩個區塊
+
+「專業技能與證照」要怎麼分開成兩個區塊？
+同一分頁內，改為兩張獨立卡片（技能卡片 + 證照卡片）
+
+Edited 3 files, ran a command
+Edited 3 files, ran a command
+Now let's split the render function into two separate cards:
+
+
+Viewed a file, edited a file
+Viewed a file, edited a file
+Let's verify there are no leftover references to the old t.skills.title key and finalize:
+
+
+Confirm the old title key is fully replaced
+Confirm the old title key is fully replaced
+All references are consistent. Copying to outputs:
+
+
+Ran a command, read a file
+Ran a command, read a file
+已將「專業技能與證照」拆成兩張獨立卡片：
+
+專業技能卡片：僅顯示技能標籤（Power BI、ISO 27001…等）
+證照卡片：顯示證照清單（依取得時間排序）
+兩張卡片維持一致的邊框、圖示、hover 陰影風格，中英文標題也已對應調整。其餘內容與邏輯皆未變動。
+
+
+Index
+Code · HTML 
+1785746328828_image.png
+這個選單的部分能否優化ui呈現方式
+
+
+Viewed 2 files, ran a command, edited a file
+Viewed 2 files, ran a command, edited a file
+Now let's update the JS render function to build pill-style tabs with icons instead of underline tabs:
+
+
+Viewed a file, edited a file, ran a command
+Viewed a file, edited a file, ran a command
+Looks clean. Copying to outputs:
+
+
+Ran a command, read a file
+Ran a command, read a file
+已將分頁選單從原本的細底線文字，改為膠囊式分段控制項（segmented control）：
+
+外層改為圓角膠囊容器（淺沙色底 + 細邊框），四個分頁擠在同一個「藥丸」內，呼應網站中導覽列語言按鈕、頁尾按鈕已經使用的膠囊風格，視覺更統一
+每個分頁按鈕加上對應圖示（學歷與自傳／工作經歷／專案成就／專業技能與證照 分別搭配 user、briefcase、trophy、award），提升可辨識度
+選中的分頁改為主色底、白字，有明確的實心背景取代原本容易被忽略的細底線
+未選中分頁 hover 時會有淺色底 + 主色文字回饋
+手機版若空間不足，可在膠囊容器內左右滑動，不會撐破版面
+其餘內容與邏輯皆未變動。
+
+
+Index
+Code · HTML 
+"專業技能與證照"文字改成"技能與證照"
+
+
+Ran 2 commands, edited a file, read a file
+Ran 2 commands, edited a file, read a file
+已將分頁選單中的「專業技能與證照」改為「技能與證照」，其餘內容未變動。
+
+
+Index
+Code · HTML 
+"學歷與自傳"文字改成"關於我"
+
+
+Ran 2 commands, edited a file, read a file
+Ran 2 commands, edited a file, read a file
+已將分頁選單中的「學歷與自傳」改為「關於我」，其餘內容未變動。
+
+
+Index
+Code · HTML 
+
+Want to be notified when Claude responds?
+
+
+
+
+
+Claude is AI and can make mistakes. Please double-check responses.
+
+
+Index · HTML
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>金佳宜 Jaiyi Jin | 數據分析師與資訊專員</title>
+ 
+    <!-- Dynamic Meta Tags -->
+    <meta
+      name="description"
+      content="金佳宜的個人履歷與作品集。擅長 Power BI 數據分析、數位行銷與 ISO 27001 資安規範導入。"
+    />
+    <meta
+      name="keywords"
+      content="數據分析師, 資訊專員, Power BI, 履歷, 個人網站, 金佳宜, 資安"
+    />
+ 
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="金佳宜 Jaiyi Jin | 數據分析師與資訊專員"
+    />
+    <meta
+      property="og:description"
+      content="金佳宜的個人履歷與作品集。擅長 Power BI 數據分析、數位行銷與 ISO 27001 資安規範導入。"
+    />
+    <meta
+      property="og:image"
+      content="https://www.cake.me/me/jaiyi-jin/og-image.jpg"
+    />
+ 
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="金佳宜 Jaiyi Jin | 數據分析師與資訊專員"
+    />
+    <meta
+      name="twitter:description"
+      content="金佳宜的個人履歷與作品集。擅長 Power BI 數據分析、數位行銷與 ISO 27001 資安規範導入。"
+    />
+ 
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+ 
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                text: "#3B3E3B",
+                bg: "#FCFBF8",
+                sec: "#F3EEE5",
+                border: "#E8E2D8",
+                accent: "#78896F",
+                accentDark: "#5C6B54",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "Noto Sans TC", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+ 
+    <!-- Lucide Icons (with fallback CDN in case the primary source fails) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      if (typeof lucide === "undefined") {
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"><\/script>'
+        );
+      }
+    </script>
+ 
+    <!-- Custom Styles & Animations -->
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+ 
+      body {
+        background-color: #fcfbf8;
+        background-image: radial-gradient(
+          ellipse 60% 40% at 50% -10%,
+          rgba(120, 137, 111, 0.07),
+          transparent 60%
+        );
+        background-attachment: fixed;
+        color: #3b3e3b;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+ 
+      ::selection {
+        background-color: rgba(120, 137, 111, 0.2);
+      }
+ 
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+ 
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+ 
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+ 
+      .animate-fade-up {
+        animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        opacity: 0;
+      }
+ 
+      .animate-fade-in {
+        animation: fadeIn 0.5s ease-out forwards;
+        opacity: 0;
+      }
+ 
+      .delay-100 {
+        animation-delay: 100ms;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col relative overflow-x-hidden">
+    <!-- Navbar -->
+    <nav
+      class="sticky top-0 z-50 w-full bg-brand-bg/90 backdrop-blur-md border-b border-brand-border transition-all duration-300"
+    >
+      <div
+        class="max-w-6xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between"
+      >
+        <a
+          href="#"
+          class="text-xl font-semibold tracking-[0.1em] text-brand-text hover:text-brand-accent transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent/40 rounded-sm"
+        >
+          J.Y.<span class="text-brand-accent">JIN</span>
+        </a>
+ 
+        <button
+          id="langToggleBtn"
+          class="flex items-center space-x-2 text-sm font-medium text-brand-text border border-brand-border rounded-full px-4 py-2 hover:text-brand-accent hover:border-brand-accent/50 hover:bg-brand-sec/60 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent/40"
+        >
+          <i data-lucide="globe" class="w-4 h-4"></i>
+          <span id="langBtnText">EN</span>
+        </button>
+      </div>
+    </nav>
+ 
+    <!-- Hero Section -->
+    <main class="flex-grow">
+      <div class="w-full max-w-6xl mx-auto px-6 lg:px-12 pt-24 md:pt-32 pb-20">
+        <div class="max-w-3xl animate-fade-up">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="w-8 h-px bg-brand-accent"></span>
+            <span
+              id="heroGreeting"
+              class="text-brand-accent font-medium tracking-widest text-sm uppercase"
+            >
+              Hello, 我是
+            </span>
+          </div>
+          <h1
+            id="heroName"
+            class="text-5xl md:text-7xl font-bold text-brand-text mb-6 tracking-tight leading-tight"
+          >
+            金佳宜 Jaiyi
+          </h1>
+          <h2
+            id="heroRole"
+            class="text-2xl md:text-4xl text-brand-text mb-8 font-light"
+          >
+            Data & Tech Operations
+          </h2>
+          <p
+            id="heroSummary"
+            class="text-brand-text/80 leading-relaxed text-lg md:text-xl max-w-2xl font-light"
+          >
+            具備經濟學邏輯思維，現任大醫生技資訊專員，專精於 Power BI
+            數據儀表板建置、ISO 27001
+            資安規範推動與自動化流程。期許結合『數據思維』與『跨部門協調力』，為企業帶來高效產值。
+          </p>
+        </div>
+      </div>
+ 
+      <!-- Main Content (Tabs) -->
+      <div class="w-full max-w-6xl mx-auto px-6 lg:px-12 pb-32">
+        <!-- Tabs Header -->
+        <div
+          id="tabsHeader"
+          class="inline-flex max-w-full items-center gap-1.5 p-1.5 mb-12 bg-brand-sec/50 border border-brand-border rounded-full overflow-x-auto no-scrollbar animate-fade-up delay-100"
+        >
+          <!-- Tab buttons injected via JS -->
+        </div>
+ 
+        <!-- Tabs Content -->
+        <div id="tabContentContainer" class="min-h-[400px]">
+          <!-- Content injected via JS -->
+        </div>
+      </div>
+    </main>
+ 
+    <!-- Footer Section -->
+    <footer
+      class="w-full border-t border-brand-border py-12 text-center bg-brand-bg mt-auto"
+    >
+      <div class="flex justify-center flex-wrap gap-4 mb-8">
+        <a
+          id="primaryCTA"
+          href="https://suisuispring2026portfolio.my.canva.site/"
+          target="_blank"
+          rel="noreferrer"
+          class="bg-brand-accent text-white px-8 py-3.5 rounded-full text-sm md:text-base font-medium shadow-sm hover:bg-brand-accentDark hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent/40"
+        >
+          平面設計作品集
+        </a>
+        <a
+          id="secondaryCTA"
+          href="mailto:jaiyi2517@gmail.com"
+          class="border border-brand-border bg-transparent text-brand-text px-8 py-3.5 rounded-full text-sm md:text-base font-medium hover:border-brand-accent hover:text-brand-accent hover:bg-brand-sec hover:-translate-y-0.5 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent/40"
+        >
+          與我聯絡
+        </a>
+      </div>
+      <p class="text-brand-text/60 text-sm font-light">
+        &copy; <span id="currentYear"></span> Jaiyi Jin. Designed & Engineered
+        with care.
+      </p>
+    </footer>
+ 
+    <!-- Data & Application Logic -->
+    <script>
+      document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
+ 
+      const translations = {
+        en: {
+          meta: {
+            title: "Jaiyi Jin | Data & Tech Operations",
+            description:
+              "Portfolio of Jaiyi Jin, specializing in Power BI, Process Automation, and ISO 27001.",
+            keywords:
+              "Data Analyst, IT Specialist, Power BI, Portfolio, Resume, Jaiyi Jin",
+          },
+          nav: {
+            langBtn: "中",
+          },
+          hero: {
+            greeting: "Hello, I'm",
+            name: "Jaiyi Jin",
+            role: "Data & Tech Operations",
+            summary:
+              "Equipped with strong logical thinking from an Economics background, I specialize in building Power BI dashboards, implementing ISO 27001 policies, and driving workflow automation. I combine data-driven insights with cross-functional coordination to deliver high operational value.",
+          },
+          tabs: {
+            profile: "Background",
+            experience: "Experience",
+            projects: "Projects",
+            skills: "Skills & Certs",
+          },
+          profile: {
+            heading: "Autobiography",
+            autobiography:
+              "I possess strong execution skills and a logical mindset, thriving in cross-disciplinary learning. \n\nMy career trajectory started in social media and multimedia marketing, which cultivated my sensitivity to user engagement and details. I subsequently pivoted deep into data analysis and IT operations. Whether it's independently learning AR filter design or acquiring multiple IT and financial certifications, I strive to become a versatile professional bridging 'business insights' and 'technical prowess'.\n\nIn my spare time, I love watching sports and doing photography. This allows me to easily connect with diverse groups of people, strengthening my interpersonal flexibility during cross-departmental coordination.",
+            traitsHeading: "Core Traits",
+            traits: [
+              "Responsible",
+              "Detail-Oriented",
+              "Logical Thinker",
+              "Tech-Enabler",
+              "Multidimensional",
+            ],
+            eduHeading: "Education",
+            education: [
+              {
+                school: "National Chung Cheng University",
+                degree: "B.S. in Economics",
+                period: "2021/9 - 2025/1",
+              },
+              {
+                school: "National Tainan Commercial High School",
+                degree: "Data Processing",
+                period: "2018/9 - 2021/6",
+              },
+            ],
+            contactInfo: "Contact Details",
+            email: "jaiyi2517@gmail.com",
+            location: "Tainan City / Chiayi , Taiwan",
+            phone: "0970-330-525",
+          },
+          experience: [
+            {
+              role: "IT Specialist (Data Analyst)",
+              company: "DaYi Biomedical Co., Ltd.",
+              period: "2025/3 - Present",
+              tasks: [
+                "**Commercial Data Analysis**: Processed over 1.5M sales records, developing 7 cross-departmental Power BI dashboards that reduced manual reporting time by 80%, highly supporting management decisions.",
+                "**AI Empowerment & Automation**: Utilized Vibe Coding for auxiliary tools and integrated Power Automate for monthly email workflows, saving 60% of processing time.",
+                "**System Implementation**: Assisted in CDP implementation and initial structural setup, integrating over 180K corporate member profiles.",
+                "**Platform Project Management**: Acted as the communication bridge for the e-commerce system project, precisely consolidating cross-departmental needs.",
+                "**InfoSec Policy Rollout**: Assisted in pushing the ISO 27001 certification project, standardizing information asset auditing across 14 departments.",
+              ],
+            },
+            {
+              role: "Teaching Assistant",
+              company: "Center for Gen-Ed, CCU",
+              period: "2023/2 - 2025/1",
+              tasks: [
+                "**Academic Data Management**: Managed instructional data for 2 classes, independently grading and recording over 200 assignments with zero errors.",
+                "**Learning Application Support**: Guided students in MS Office operations with clear logical expression, significantly improving course pass rates.",
+                "**Two-way Communication Hub**: Served as the communication bridge for a 45+ student course, efficiently summarizing and reporting student feedback weekly.",
+              ],
+            },
+            {
+              role: "IT Assistant (Tech Development)",
+              company: "IT Center, CCU",
+              period: "2022/3 - 2025/1",
+              tasks: [
+                "**InfoSec & PII Audits**: Assisted in campus cybersecurity pre-audits, securely managing over 30 risk assessment documents across 10+ departments.",
+                "**Administrative Optimization**: Optimized document tracking and asset inventory workflows using Excel/Word and AI tools, saving 30% of routine admin time.",
+              ],
+            },
+            {
+              role: "Multimedia Design Assistant",
+              company: "Ching-Jiang Center, CCU",
+              period: "2022/2 - 2023/2",
+              tasks: [
+                "**Visual Design**: Independently handled digital course promotional materials, producing ~10 Banners and EDMs monthly with punctual delivery.",
+                "**Video Editing**: Managed simple post-production and subtitling for online courses, editing over 12 video assets to ensure content fluency.",
+              ],
+            },
+          ],
+          projects: [
+            {
+              title: "Instagram AR Filter Developer & Community Operation",
+              period: "2021/6 - 2025/1",
+              desc: "Self-taught AR filter creation, designing and launching nearly 100 IG filters. Accurately captured Gen-Z trends, generating over 170 million organic impressions and 10 million active camera uses, demonstrating exceptional community growth and conversion capabilities.",
+            },
+            {
+              title: "Taiwan Information Security Forum (TOSA) STAFF",
+              period: "2024/8 - 2024/9",
+              desc: "Actively engaged in the cybersecurity field to complement my ISO 27001 implementation experience. Managed on-site logistics, hardware troubleshooting, and cross-team coordination to ensure a seamless experience for attendees.",
+            },
+          ],
+          skills: {
+            skillsHeading: "Professional Skills",
+            certsHeading: "Certifications",
+            skillsList: [
+              "Power BI",
+              "ISO 27001",
+              "Photoshop",
+              "PowerPoint",
+              "Word",
+              "Excel",
+              "Power Automate",
+              "Cross-functional Project Management",
+              "AI Vibe Coding",
+              "Social Media Marketing",
+            ],
+            certsDetailed: [
+              {
+                title: "Bank Internal Control & Audit",
+                issuer: "Taiwan Academy of Banking and Finance",
+                date: "Jan 2024",
+              },
+              {
+                title: "Trust Business Professional",
+                issuer: "Trust Association of R.O.C.",
+                date: "Aug 2023",
+              },
+              {
+                title: "Financial Market Knowledge & Ethics",
+                issuer: "Securities & Futures Institute",
+                date: "Aug 2023",
+              },
+              {
+                title: "Level 2 Business Management",
+                issuer: "C.V.E.A.",
+                date: "Mar 2021",
+              },
+              {
+                title: "Web Design (Level C)",
+                issuer: "Ministry of Labor",
+                date: "Jul 2020",
+              },
+              {
+                title: "TQC Excel (Practical)",
+                issuer: "Computer Skills Foundation",
+                date: "Jun 2020",
+              },
+              {
+                title: "TQC Word (Practical)",
+                issuer: "Computer Skills Foundation",
+                date: "Jun 2020",
+              },
+              {
+                title: "Computer Software Application (Level C)",
+                issuer: "Ministry of Labor",
+                date: "Jul 2019",
+              },
+              {
+                title: "Accounting Affairs - IT (Level C)",
+                issuer: "Ministry of Labor",
+                date: "Jul 2019",
+              },
+              {
+                title: "Accounting Affairs - Manual (Level C)",
+                issuer: "Ministry of Labor",
+                date: "Jul 2019",
+              },
+            ],
+          },
+          footer: {
+            primaryCTA: "Design Portfolio",
+            secondaryCTA: "Get in Touch",
+          },
+        },
+        zh: {
+          meta: {
+            title: "金佳宜 Jaiyi Jin | Data & Tech Operations",
+            description:
+              "金佳宜的個人履歷與作品集。擅長 Power BI 數據分析、數位行銷與 ISO 27001 資安規範導入。",
+            keywords:
+              "數據分析師, 資訊專員, Power BI, 履歷, 個人網站, 金佳宜, 資安",
+          },
+          nav: {
+            langBtn: "EN",
+          },
+          hero: {
+            greeting: "Hello, 我是",
+            name: "金佳宜 Jaiyi",
+            role: "Data & Tech Operations",
+            summary:
+              "具備經濟學邏輯思維，現任大醫生技資訊專員，專精於 Power BI 數據儀表板建置、ISO 27001 資安規範推動與自動化流程。期許結合『數據思維』與『跨部門協調力』，為企業帶來高效產值。",
+          },
+          tabs: {
+            profile: "關於我",
+            experience: "工作經歷",
+            projects: "專案成就",
+            skills: "技能與證照",
+          },
+          profile: {
+            heading: "自我介紹",
+            autobiography:
+              "我具備高度的執行力與邏輯思維，擅長跨領域學習。\n\n我的職涯軌跡從社群與多媒體行銷出發，培養了對受眾與細節的敏銳度，隨後深入數據分析與資訊營運領域。無論是從零自學 AR 特效設計，或是考取多張資訊與金融專業證照，我都期許自己成為兼具「商業洞察」與「技術實力」的多方位人才。\n\n閒暇之餘，我熱愛觀看運動賽事與攝影，這培養了我與不同人群快速建立連結的能力，更在跨部門溝通與專案對接時，展現出柔韌的協調力。",
+            traitsHeading: "核心特質",
+            traits: [
+              "認真負責",
+              "細節雷達",
+              "邏輯縝密",
+              "工具賦能",
+              "多維思辨",
+            ],
+            eduHeading: "學歷背景",
+            education: [
+              {
+                school: "國立中正大學",
+                degree: "經濟學系 學士",
+                period: "2021/9 - 2025/1",
+              },
+              {
+                school: "國立臺南高商",
+                degree: "資料處理科",
+                period: "2018/9 - 2021/6",
+              },
+            ],
+            contactInfo: "聯絡資訊",
+            email: "jaiyi2517@gmail.com",
+            location: "台灣，台南市 / 嘉義縣市",
+            phone: "0970-330-525",
+          },
+          experience: [
+            {
+              role: "資訊專員 (數據/資料分析師)",
+              company: "大醫生技股份有限公司",
+              period: "2025/3 - 仍在職",
+              tasks: [
+                "**商業數據分析**：處理逾 150 萬筆銷售數據，運用 Power BI 開發 7 份跨部門銷售與會員儀表板，成功將每月人工製表時間大幅縮減 80%，高效支援管理層商業決策。",
+                "**AI 賦能與流程自動化**：運用 Vibe Coding 開發輔助工具（如：退貨金額計算、電商架構模擬），並結合 Power Automate 等 AI 工具將每月固定發信流程自動化，節省約 60% 處理時間。",
+                "**系統導入設置**：協助導入 CDP 會員數據平台並完成初期架構設置，整合高達 18 萬筆企業會員資料，為精準行銷與自動化營運奠基。",
+                "**平台專案對接**：擔任電商系統專案內外溝通橋樑，精準收斂跨部門需求、高效對接外部廠商。",
+                "**資安政策導入**：協助推動企業 ISO 27001 認證專案，跨單位統籌並標準化 14 個部門的資訊資產盤點與稽核文件。",
+              ],
+            },
+            {
+              role: "課程教學助理",
+              company: "中正大學 通識教育中心",
+              period: "2023/2 - 2025/1",
+              tasks: [
+                "**教務數據管理**：負責兩個班級教學資料，獨立批改、核算並登記累計超過 200 份作業與考試成績，確保成績結算零誤差。",
+                "**學習應用協助**：具備清晰邏輯表達能力，指導學生 Office 軟體操作，有效提升修課通過率與滿意度。",
+                "**雙向溝通樞紐**：擔任超過 45 人課程之師生溝通橋樑，每週高效統整並回報學生反饋，確保進度順利。",
+              ],
+            },
+            {
+              role: "技術發展組 工讀生",
+              company: "中正大學資訊處",
+              period: "2022/3 - 2025/1",
+              tasks: [
+                "**資安個資稽核**：協助執行校內資安與個資稽核前置作業，嚴謹歸檔逾 30 份風險評鑑機敏文件，協助確認 10 餘個處室資料合規性。",
+                "**行政流程優化**：運用 Excel/Word 與 AI 工具優化文件追蹤及資產盤點流程，成功節省約 30% 常規行政作業時間。",
+              ],
+            },
+            {
+              role: "數位學習組 工讀生",
+              company: "中正大學清江中心",
+              period: "2022/2 - 2023/2",
+              tasks: [
+                "**平面視覺設計**：獨立負責數位課程視覺文宣，每月產出約 10 件宣傳 Banner 與 EDM 等素材，維持高水準排版且準時交付。",
+                "**影音剪輯優化**：負責線上課程影片簡易後製與字幕作業，累計獨立剪輯超過 12 部影音素材，確保數位學習內容專業呈現。",
+              ],
+            },
+          ],
+          projects: [
+            {
+              title: "Instagram AR 特效開發與社群營運",
+              period: "2021/6 - 2025/1",
+              desc: "主動洞察社群視覺趨勢，從零自學技術並上架近百款 IG 濾鏡。精準掌握年輕受眾喜好，帶動自然流量，作品累計突破 1.7 億次曝光量，且達成逾 1,000 萬次拍攝使用，展現極強的社群轉換與擴散力。",
+            },
+            {
+              title: "台灣網路資訊信任與安全論壇 (TOSA) 工作人員",
+              period: "2024/8 - 2024/9",
+              desc: "積極投入資安領域論壇，掌握產業合規趨勢，與負責之 ISO 27001 導入經驗相輔相成。負責論壇現場營運與後勤軟硬體機動支援，展現極佳的抗壓性與協調力。",
+            },
+          ],
+          skills: {
+            skillsHeading: "專業技能",
+            certsHeading: "證照 (依取得時間排序)",
+            skillsList: [
+              "Power BI",
+              "ISO 27001",
+              "Photoshop",
+              "PowerPoint (簡報製作)",
+              "Word (文書處理)",
+              "Excel (試算表與數據處理)",
+              "Power Automate (程序自動化)",
+              "跨部門專案統籌",
+              "AI Vibe Coding",
+              "社群行銷營運",
+            ],
+            certsDetailed: [
+              {
+                title: "銀行內部控制與內部稽核測驗",
+                issuer: "財團法人台灣金融研訓院",
+                date: "2024年1月",
+              },
+              {
+                title: "信託業務專業測驗",
+                issuer: "中華民國信託業商業同業公會",
+                date: "2023年8月",
+              },
+              {
+                title: "金融市場常識與職業道德",
+                issuer: "中華民國證券暨期貨市場發展基金會",
+                date: "2023年8月",
+              },
+              {
+                title: "商業管理能力檢定 第二級",
+                issuer: "中華民國商業職業教育學會",
+                date: "2021年3月",
+              },
+              {
+                title: "技術士 - 網頁設計",
+                issuer: "勞動部",
+                date: "2020年7月",
+              },
+              {
+                title: "TQC EXCEL 實用級",
+                issuer: "電腦技能基金會",
+                date: "2020年6月",
+              },
+              {
+                title: "TQC WORD 實用級",
+                issuer: "電腦技能基金會",
+                date: "2020年6月",
+              },
+              {
+                title: "技術士 - 電腦軟體應用",
+                issuer: "勞動部",
+                date: "2019年7月",
+              },
+              {
+                title: "技術士 - 會計事務 (資訊)",
+                issuer: "勞動部",
+                date: "2019年7月",
+              },
+              {
+                title: "技術士 - 會計事務 (人工記帳)",
+                issuer: "勞動部",
+                date: "2019年7月",
+              },
+            ],
+          },
+          footer: {
+            primaryCTA: "平面設計作品集",
+            secondaryCTA: "與我聯絡",
+          },
+        },
+      };
+ 
+      // Application State
+      let currentLang = "zh";
+      let activeTab = "profile";
+ 
+      const tabsConfig = [
+        { id: "profile", key: "profile" },
+        { id: "experience", key: "experience" },
+        { id: "projects", key: "projects" },
+        { id: "skills", key: "skills" },
+      ];
+ 
+      function formatText(text) {
+        // Replace **bold** with <strong> tags
+        return text.replace(
+          /\*\*(.*?)\*\*/g,
+          '<span class="font-semibold text-brand-text">$1</span>'
+        );
+      }
+ 
+      function updateMetaTags(t) {
+        document.title = t.meta.title;
+        document.documentElement.lang = currentLang === "en" ? "en" : "zh-TW";
+ 
+        document.querySelector('meta[name="description"]').content =
+          t.meta.description;
+        document.querySelector('meta[name="keywords"]').content =
+          t.meta.keywords;
+ 
+        document.querySelector('meta[property="og:title"]').content =
+          t.meta.title;
+        document.querySelector('meta[property="og:description"]').content =
+          t.meta.description;
+ 
+        document.querySelector('meta[name="twitter:title"]').content =
+          t.meta.title;
+        document.querySelector('meta[name="twitter:description"]').content =
+          t.meta.description;
+      }
+ 
+      function renderStaticContent(t) {
+        document.getElementById("langBtnText").textContent = t.nav.langBtn;
+ 
+        document.getElementById("heroGreeting").textContent = t.hero.greeting;
+        document.getElementById("heroName").textContent = t.hero.name;
+        document.getElementById("heroRole").textContent = t.hero.role;
+        document.getElementById("heroSummary").textContent = t.hero.summary;
+ 
+        document.getElementById("primaryCTA").textContent = t.footer.primaryCTA;
+        document.getElementById("secondaryCTA").textContent =
+          t.footer.secondaryCTA;
+      }
+ 
+      const tabIcons = {
+        profile: "user",
+        experience: "briefcase",
+        projects: "trophy",
+        skills: "award",
+      };
+ 
+      function renderTabsHeader(t) {
+        const headerContainer = document.getElementById("tabsHeader");
+        headerContainer.innerHTML = "";
+ 
+        tabsConfig.forEach((tab) => {
+          const isActive = activeTab === tab.id;
+          const button = document.createElement("button");
+          button.className = `flex items-center gap-2 px-4 md:px-5 py-2.5 text-sm md:text-base font-medium rounded-full whitespace-nowrap transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent/40 ${
+            isActive
+              ? "bg-brand-accent text-white shadow-sm"
+              : "text-brand-text/70 hover:text-brand-accent hover:bg-white/60"
+          }`;
+          button.innerHTML = `<i data-lucide="${
+            tabIcons[tab.key]
+          }" class="w-4 h-4 shrink-0"></i><span>${t.tabs[tab.key]}</span>`;
+ 
+          button.onclick = () => {
+            activeTab = tab.id;
+            renderTabsHeader(translations[currentLang]);
+            renderTabContent(translations[currentLang]);
+          };
+ 
+          headerContainer.appendChild(button);
+        });
+      }
+ 
+      function getProfileHTML(t) {
+        const traitsHTML = t.profile.traits
+          .map(
+            (trait) =>
+              `<span class="px-4 py-2 text-sm rounded-full bg-brand-accent/10 text-brand-accent font-medium border border-brand-accent/20 cursor-default">#${trait}</span>`
+          )
+          .join("");
+ 
+        const eduHTML = t.profile.education
+          .map(
+            (edu) =>
+              `<div class="relative pl-5 before:content-[''] before:absolute before:left-0 before:top-2 before:w-2 before:h-2 before:bg-brand-accent before:rounded-full">
+                    <h5 class="text-brand-text font-medium">${edu.school}</h5>
+                    <p class="text-brand-text/70 text-sm mt-1">${edu.degree}</p>
+                    <div class="flex items-center space-x-2 mt-2">
+                        <span class="text-brand-accent text-xs font-medium bg-brand-sec px-2 py-1 rounded-md">${edu.period}</span>
+                    </div>
+                </div>`
+          )
+          .join("");
+ 
+        return `
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 animate-fade-in">
+                <!-- Left Column: Bio & Traits -->
+                <div class="lg:col-span-2 space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6 flex items-center text-brand-text">
+                            <i data-lucide="user" class="w-6 h-6 mr-3 text-brand-accent"></i>
+                            ${t.profile.heading}
+                        </h3>
+                        <p class="leading-relaxed text-lg font-light text-brand-text/90 whitespace-pre-line">${t.profile.autobiography}</p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-medium text-brand-text mb-4">${t.profile.traitsHeading}</h4>
+                        <div class="flex flex-wrap gap-3">${traitsHTML}</div>
+                    </div>
+                </div>
+ 
+                <!-- Right Column: Education & Contact -->
+                <div class="space-y-8">
+                    <div class="bg-brand-bg p-8 rounded-2xl border border-brand-border hover:border-brand-accent/40 hover:shadow-[0_10px_30px_-12px_rgba(120,137,111,0.35)] transition-all duration-300">
+                        <h4 class="text-lg font-medium text-brand-text mb-6 flex items-center">
+                            <i data-lucide="graduation-cap" class="w-5 h-5 mr-2 text-brand-accent"></i>
+                            ${t.profile.eduHeading}
+                        </h4>
+                        <div class="space-y-6">${eduHTML}</div>
+                    </div>
+                    <div class="bg-brand-sec p-8 rounded-2xl border border-brand-border/50">
+                        <h4 class="text-lg font-medium text-brand-text mb-6">${t.profile.contactInfo}</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3 text-brand-text/80">
+                                <i data-lucide="mail" class="w-5 h-5 text-brand-accent"></i>
+                                <a href="mailto:${t.profile.email}" class="hover:text-brand-accent transition-colors">${t.profile.email}</a>
+                            </div>
+                            <div class="flex items-center space-x-3 text-brand-text/80">
+                                <i data-lucide="phone" class="w-5 h-5 text-brand-accent"></i>
+                                <span>${t.profile.phone}</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-brand-text/80">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-brand-accent"></i>
+                                <span>${t.profile.location}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+      }
+ 
+      function getExperienceHTML(t) {
+        const expsHTML = t.experience
+          .map((exp) => {
+            const tasksHTML = exp.tasks
+              .map(
+                (task) =>
+                  `<li class="flex items-start group/item">
+                        <span class="mr-3 mt-2 flex-shrink-0 flex items-center justify-center">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-accent/50 group-hover/item:bg-brand-accent group-hover/item:scale-125 transition-all"></span>
+                        </span>
+                        <span class="text-brand-text/80 font-light leading-relaxed">
+                            ${formatText(task)}
+                        </span>
+                    </li>`
+              )
+              .join("");
+ 
+            return `
+                <div class="group relative flex flex-col md:flex-row gap-6 bg-brand-bg border border-brand-border p-8 rounded-2xl hover:border-brand-accent/50 hover:shadow-[0_14px_36px_-16px_rgba(120,137,111,0.4)] hover:-translate-y-1 transition-all duration-300">
+                    <div class="md:w-1/4 shrink-0 pt-1">
+                        <div class="flex items-center space-x-2 text-brand-accent font-medium text-sm mb-2">
+                            <i data-lucide="calendar" class="w-4 h-4"></i>
+                            <span>${exp.period}</span>
+                        </div>
+                        <h4 class="text-lg font-medium text-brand-text">${exp.company}</h4>
+                    </div>
+                    <div class="md:w-3/4">
+                        <h3 class="text-xl font-semibold text-brand-text mb-4 group-hover:text-brand-accent transition-colors duration-300">${exp.role}</h3>
+                        <ul class="space-y-3">${tasksHTML}</ul>
+                    </div>
+                </div>`;
+          })
+          .join("");
+ 
+        return `<div class="space-y-8 animate-fade-in">${expsHTML}</div>`;
+      }
+ 
+      function getProjectsHTML(t) {
+        const projectsHTML = t.projects
+          .map(
+            (proj) =>
+              `<div class="bg-brand-bg border border-brand-border p-8 rounded-2xl hover:border-brand-accent/40 hover:shadow-[0_14px_36px_-16px_rgba(120,137,111,0.4)] hover:-translate-y-1 transition-all duration-300 flex flex-col">
+                    <div class="flex items-center space-x-2 text-brand-accent font-medium text-sm mb-4">
+                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                        <span>${proj.period}</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-brand-text mb-4">${proj.title}</h3>
+                    <p class="text-brand-text/80 leading-relaxed font-light flex-grow">${proj.desc}</p>
+                </div>`
+          )
+          .join("");
+ 
+        return `<div class="grid grid-cols-1 md:grid-cols-2 gap-8 animate-fade-in">${projectsHTML}</div>`;
+      }
+ 
+      function getSkillsHTML(t) {
+        const skillsHTML = t.skills.skillsList
+          .map(
+            (skill) =>
+              `<span class="px-4 py-2 text-sm rounded-lg border border-brand-border text-brand-text bg-brand-bg transition-all duration-300 hover:bg-brand-sec hover:border-brand-accent hover:text-brand-accent hover:-translate-y-0.5 cursor-default shadow-sm">${skill}</span>`
+          )
+          .join("");
+ 
+        const certsHTML = t.skills.certsDetailed
+          .map(
+            (cert) =>
+              `<div class="flex items-start p-4 bg-brand-sec/40 rounded-xl border border-brand-border/60 hover:bg-brand-sec hover:border-brand-accent/50 transition-all duration-300 hover:-translate-y-0.5">
+                    <div class="bg-white p-2.5 rounded-lg shadow-sm border border-brand-border/50 mr-4 text-brand-accent shrink-0">
+                        <i data-lucide="award" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-brand-text font-medium text-sm mb-1 leading-tight">${cert.title}</h4>
+                        <p class="text-brand-text/60 text-xs">${cert.issuer}</p>
+                        <p class="text-brand-accent text-xs font-semibold mt-1.5">${cert.date}</p>
+                    </div>
+                </div>`
+          )
+          .join("");
+ 
+        return `
+            <div class="space-y-8 animate-fade-in">
+                <div class="bg-brand-bg border border-brand-border rounded-2xl p-8 hover:border-brand-accent/40 hover:shadow-[0_10px_30px_-12px_rgba(120,137,111,0.35)] transition-all duration-300">
+                    <div class="flex items-center space-x-3 text-brand-accent mb-6">
+                        <i data-lucide="briefcase" class="w-5 h-5"></i>
+                        <h3 class="text-lg font-medium text-brand-text">${t.skills.skillsHeading}</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-3">${skillsHTML}</div>
+                </div>
+ 
+                <div class="bg-brand-bg border border-brand-border rounded-2xl p-8 hover:border-brand-accent/40 hover:shadow-[0_10px_30px_-12px_rgba(120,137,111,0.35)] transition-all duration-300">
+                    <div class="flex items-center space-x-3 text-brand-accent mb-6">
+                        <i data-lucide="award" class="w-5 h-5"></i>
+                        <h3 class="text-lg font-medium text-brand-text">${t.skills.certsHeading}</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        ${certsHTML}
+                    </div>
+                </div>
+            </div>`;
+      }
+ 
+      function renderTabContent(t) {
+        const container = document.getElementById("tabContentContainer");
+        let html = "";
+ 
+        if (activeTab === "profile") html = getProfileHTML(t);
+        else if (activeTab === "experience") html = getExperienceHTML(t);
+        else if (activeTab === "projects") html = getProjectsHTML(t);
+        else if (activeTab === "skills") html = getSkillsHTML(t);
+ 
+        container.innerHTML = html;
+        safeCreateIcons(); // Re-initialize icons inside new DOM
+      }
+ 
+      function safeCreateIcons() {
+        // Guards against "lucide is not defined" if the icon CDN fails to load
+        if (typeof lucide !== "undefined" && lucide.createIcons) {
+          lucide.createIcons();
+        } else {
+          console.warn("Lucide icons unavailable: script failed to load.");
+        }
+      }
+ 
+      function switchLanguage() {
+        currentLang = currentLang === "en" ? "zh" : "en";
+        const t = translations[currentLang];
+ 
+        updateMetaTags(t);
+        renderStaticContent(t);
+        renderTabsHeader(t);
+        renderTabContent(t);
+      }
+ 
+      document
+        .getElementById("langToggleBtn")
+        .addEventListener("click", switchLanguage);
+ 
+      // Init App
+      const initT = translations[currentLang];
+      updateMetaTags(initT);
+      renderStaticContent(initT);
+      renderTabsHeader(initT);
+      renderTabContent(initT);
+    </script>
+  </body>
+</html>
+ 
+
