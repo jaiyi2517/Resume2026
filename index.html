@@ -211,11 +211,17 @@
       <!-- Main Content (Tabs) -->
       <div class="w-full max-w-6xl mx-auto px-6 lg:px-12 pb-32">
         <!-- Tabs Header -->
-        <div
-          id="tabsHeader"
-          class="inline-flex max-w-full items-center gap-1.5 p-1.5 mb-12 bg-brand-sec/50 border border-brand-border rounded-full overflow-x-auto no-scrollbar animate-fade-up delay-100"
-        >
-          <!-- Tab buttons injected via JS -->
+        <div class="relative z-30 mb-12 animate-fade-up delay-100">
+          <div
+            id="tabsHeaderDesktop"
+            class="hidden md:inline-flex max-w-full items-center gap-1.5 p-1.5 bg-brand-sec/50 border border-brand-border rounded-full overflow-x-auto no-scrollbar"
+          >
+            <!-- Desktop tab buttons injected via JS -->
+          </div>
+
+          <div id="tabsHeaderMobile" class="md:hidden relative z-30">
+            <!-- Mobile dropdown trigger + list injected via JS -->
+          </div>
         </div>
  
         <!-- Tabs Content -->
@@ -684,10 +690,17 @@
         skills: "award",
       };
  
+      let isMobileTabMenuOpen = false;
+
       function renderTabsHeader(t) {
-        const headerContainer = document.getElementById("tabsHeader");
+        renderDesktopTabs(t);
+        renderMobileTabs(t);
+      }
+
+      function renderDesktopTabs(t) {
+        const headerContainer = document.getElementById("tabsHeaderDesktop");
         headerContainer.innerHTML = "";
- 
+
         tabsConfig.forEach((tab) => {
           const isActive = activeTab === tab.id;
           const button = document.createElement("button");
@@ -699,16 +712,92 @@
           button.innerHTML = `<i data-lucide="${
             tabIcons[tab.key]
           }" class="w-4 h-4 shrink-0"></i><span>${t.tabs[tab.key]}</span>`;
- 
+
           button.onclick = () => {
             activeTab = tab.id;
             renderTabsHeader(translations[currentLang]);
             renderTabContent(translations[currentLang]);
           };
- 
+
           headerContainer.appendChild(button);
         });
       }
+
+      function renderMobileTabs(t) {
+        const container = document.getElementById("tabsHeaderMobile");
+        const activeConfig = tabsConfig.find((tab) => tab.id === activeTab);
+
+        const optionsHTML = tabsConfig
+          .map((tab) => {
+            const isActive = activeTab === tab.id;
+            return `<button
+                data-tab-id="${tab.id}"
+                class="w-full flex items-center gap-2.5 px-5 py-3 text-sm font-medium text-left transition-colors duration-200 focus-visible:outline-none focus-visible:bg-brand-sec/60 ${
+                  isActive
+                    ? "bg-brand-accent text-white"
+                    : "text-brand-text/80 hover:bg-brand-sec/60 hover:text-brand-accent"
+                }"
+              >
+                <i data-lucide="${
+                  tabIcons[tab.key]
+                }" class="w-4 h-4 shrink-0"></i>
+                <span>${t.tabs[tab.key]}</span>
+              </button>`;
+          })
+          .join("");
+
+        container.innerHTML = `
+          <button
+            id="mobileTabTrigger"
+            class="w-full flex items-center justify-between gap-2 px-5 py-3 bg-brand-sec/50 border border-brand-border rounded-full text-brand-text font-medium text-sm transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent/40"
+          >
+            <span class="flex items-center gap-2.5">
+              <i data-lucide="${
+                tabIcons[activeConfig.key]
+              }" class="w-4 h-4 text-brand-accent shrink-0"></i>
+              <span>${t.tabs[activeConfig.key]}</span>
+            </span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-brand-accent transition-transform duration-300 ${
+              isMobileTabMenuOpen ? "rotate-180" : ""
+            }"></i>
+          </button>
+          <div
+            id="mobileTabList"
+            class="absolute left-0 right-0 mt-2 bg-brand-bg border border-brand-border rounded-2xl shadow-lg overflow-hidden z-50 ${
+              isMobileTabMenuOpen ? "" : "hidden"
+            }"
+          >
+            ${optionsHTML}
+          </div>
+        `;
+
+        document.getElementById("mobileTabTrigger").onclick = (e) => {
+          e.stopPropagation();
+          isMobileTabMenuOpen = !isMobileTabMenuOpen;
+          renderMobileTabs(translations[currentLang]);
+          safeCreateIcons();
+        };
+
+        container.querySelectorAll("[data-tab-id]").forEach((btn) => {
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            activeTab = btn.getAttribute("data-tab-id");
+            isMobileTabMenuOpen = false;
+            renderTabsHeader(translations[currentLang]);
+            renderTabContent(translations[currentLang]);
+          };
+        });
+      }
+
+      document.addEventListener("click", (e) => {
+        if (!isMobileTabMenuOpen) return;
+        const container = document.getElementById("tabsHeaderMobile");
+        if (container && !container.contains(e.target)) {
+          isMobileTabMenuOpen = false;
+          renderMobileTabs(translations[currentLang]);
+          safeCreateIcons();
+        }
+      })
  
       function getProfileHTML(t) {
         const traitsHTML = t.profile.traits
@@ -924,5 +1013,3 @@
     </script>
   </body>
 </html>
- 
-
